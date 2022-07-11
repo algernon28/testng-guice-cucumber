@@ -1,0 +1,8 @@
+@login @negative
+Feature: Login Negative
+  Test the login with bad credentials
+
+  Background: 
+    Given I am logged as user
+      | username                | password     |
+      | performance_glitch_user | secret_sauce |

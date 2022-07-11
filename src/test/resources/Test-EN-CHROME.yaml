@@ -1,0 +1,11 @@
+name: Test-method Suite
+tests:
+-  name: Test-Login EN CHROME
+   parameters:
+      browser: Chrome
+      #The following parameters are optional, the defaults are taken from Utils
+      language: en
+      country: US
+      architecture: X64
+   classes:
+   - com.watermelon.steps.CucumberRunner

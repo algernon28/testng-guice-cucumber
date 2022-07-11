@@ -1,0 +1,5 @@
+server:
+   protocol: https
+   host: www.saucedemo.com
+   port: 443
+   resource: /
