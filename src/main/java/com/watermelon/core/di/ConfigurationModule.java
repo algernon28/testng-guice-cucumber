@@ -15,6 +15,7 @@ import com.google.inject.Provides;
 import com.watermelon.core.Utils;
 
 import io.cucumber.guice.ScenarioScoped;
+
 /**
  * Makes Make {@link ResourceBundle} available to Guice
  * 

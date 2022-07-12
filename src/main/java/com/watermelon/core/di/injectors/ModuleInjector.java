@@ -15,10 +15,8 @@ public class ModuleInjector implements InjectorSource {
 
 	@Override
 	public Injector getInjector() {
-		Injector inj = 
-				Guice.createInjector(Stage.DEVELOPMENT, CucumberModules.createScenarioModule(), 
-				new DriverManagerModule(),
-				new ConfigurationModule());
+		Injector inj = Guice.createInjector(Stage.DEVELOPMENT, CucumberModules.createScenarioModule(),
+				new DriverManagerModule(), new ConfigurationModule());
 		log.debug("Injector: {}", inj);
 		return inj;
 	}

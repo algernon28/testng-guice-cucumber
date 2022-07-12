@@ -36,15 +36,16 @@ public class DriverManagerModule extends AbstractModule {
 	public JavascriptExecutor getJavascriptExecutor(WebDriver driver) {
 		return (JavascriptExecutor) driver;
 	}
-	
+
 	@Provides
 	public Actions getActions(WebDriver driver) {
 		return new Actions(driver);
 	}
-	
+
 	@Provides
 	public WebDriverWait getWait(WebDriver driver) {
 		return new WebDriverWait(driver, DefaultTimeout, DefaultTimeoutInterval);
-		//return new WebDriverWait(driver, DefaultTimeout.getSeconds(), DefaultTimeoutInterval.getSeconds());
+		// return new WebDriverWait(driver, DefaultTimeout.getSeconds(),
+		// DefaultTimeoutInterval.getSeconds());
 	}
 }

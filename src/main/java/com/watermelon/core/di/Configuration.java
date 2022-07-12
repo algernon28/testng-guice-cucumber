@@ -15,8 +15,9 @@ public class Configuration {
 		private String host;
 		private int port;
 		private String resource;
+
 		public URL getURL() throws MalformedURLException {
-			return new URL(protocol,host,port,resource);
+			return new URL(protocol, host, port, resource);
 		}
 	}
 }

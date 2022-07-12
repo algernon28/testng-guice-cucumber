@@ -1,4 +1,4 @@
-package com.watermelon.steps.pages;
+package com.watermelon.core;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -14,25 +14,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.google.inject.Inject;
 import com.watermelon.core.di.Configuration;
 
-public abstract class BasePage {
-	
+public abstract class WebPage {
+
 	protected WebDriver driver;
-	
+
 	@Inject
-	protected WebDriverWait waiter;
-	
+	protected WebDriverWait wait;
+
 	@Inject
 	protected JavascriptExecutor jsExecutor;
 
 	@Inject
 	protected Configuration configuration;
-	
-	public BasePage(WebDriver driver) {
+
+	protected WebPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		if (!this.isLoaded()) {
+			String msg = String.format("Could not load page %s", getClass().getSimpleName());
+			throw new PageNotLoadedException(msg);
+		}
 	}
-	
+
 	public abstract WebElement title();
+
+	public boolean isLoaded() {
+		WebElement pageTitle = title();
+		waitUntilVisible(pageTitle);
+		return pageTitle.isDisplayed();
+	}
 
 	public void navigateTo(URL url) {
 		driver.navigate().to(url);
@@ -41,32 +51,32 @@ public abstract class BasePage {
 	public void navigateTo(String url) {
 		driver.navigate().to(url);
 	}
-	
+
 	public WebElement waitUntilVisible(WebElement element) {
-		return waiter.until(ExpectedConditions.visibilityOf(element));
+		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
-	
+
 	protected void click(WebElement element) {
 		waitUntilVisible(element).click();
 	}
-	
+
 	protected void clear(WebElement element) {
 		waitUntilVisible(element).clear();
 	}
-	
+
 	protected void clearAll(List<WebElement> elements) {
 		elements.stream().forEach(e -> e.clear());
 	}
-	
+
 	protected void clearAll(WebElement... elements) {
 		clearAll(Arrays.asList(elements));
 	}
-	
+
 	protected void type(WebElement element, String value) {
 		clear(element);
 		waitUntilVisible(element).sendKeys(value);
 	}
-	
+
 	protected void addText(WebElement element, String value) {
 		waitUntilVisible(element).sendKeys(value);
 	}

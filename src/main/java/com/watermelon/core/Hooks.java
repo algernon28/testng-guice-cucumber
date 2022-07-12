@@ -14,7 +14,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 
-@Guice(modules = {DriverManagerModule.class, ConfigurationModule.class})
+@Guice(modules = { DriverManagerModule.class, ConfigurationModule.class })
 public class Hooks extends AbstractTestNGCucumberTests {
 	@Inject
 	WebDriver driver;

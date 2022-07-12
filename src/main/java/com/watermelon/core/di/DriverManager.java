@@ -75,8 +75,8 @@ public class DriverManager implements Provider<WebDriver> {
 			ffOptions.addPreference("intl.accept_languages", myLanguage);
 			ffOptions.setProfile(profile).setAcceptInsecureCerts(true);
 			driver = wdm.gitHubToken("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")
-					//can't make it work with FirefoxOptions yet, commenting for now...
-					//.capabilities(ffOptions)
+					// can't make it work with FirefoxOptions yet, commenting for now...
+					// .capabilities(ffOptions)
 					.create();
 			logger.debug("FireFoxDriver built: {}", driver);
 			break;
@@ -101,8 +101,8 @@ public class DriverManager implements Provider<WebDriver> {
 	}
 
 	/**
-	 * Remove current driver from the threadpool. 
-	 * Delegate method to comply with Sonar {@code java:S5164} rule.
+	 * Remove current driver from the threadpool. Delegate method to comply with
+	 * Sonar {@code java:S5164} rule.
 	 */
 	public static void removeDriver() {
 		DRIVERPOOL.remove();

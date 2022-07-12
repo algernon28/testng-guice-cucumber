@@ -10,13 +10,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.pagefactory.ByChained;
+import org.openqa.selenium.support.ui.Select;
 
 import com.google.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ProductPage extends BasePage {
+public class ProductPage extends SauceLabsPage {
 
 	public static String PROBLEM_SOURCE_IMAGEFILE = "/static/media/sl-404.168b1cce.jpg";
 
@@ -30,9 +32,35 @@ public class ProductPage extends BasePage {
 
 	@FindBy(className = "inventory_item")
 	private List<WebElement> items;
-	
-	public List<InventoryItem> getItems(){
-		return items.stream().map(el -> new InventoryItem(el)).toList();		
+
+	@FindBy(className = "product_sort_container")
+	private WebElement sorter;
+
+	public enum SORT_METHOD {
+		AZ("Name (A to Z)"), ZA("Name (Z to A)"), LOHI("Price (low to high)"), HILO("Price (high to low)");
+
+		public String label;
+
+		private SORT_METHOD(String label) {
+			this.label = label;
+		}
+	}
+
+	public List<InventoryItem> getItems() {
+		return items.stream().map(el -> new InventoryItem(el)).toList();
+	}
+
+	/**
+	 * 
+	 * @param method the sort method
+	 * @return the text of the active option
+	 */
+	public String sortBy(SORT_METHOD method) {
+		waitUntilVisible(sorter);
+		Select filter = new Select(sorter);
+		filter.selectByVisibleText(method.label);
+		WebElement activeOption = driver.findElement(By.className("active_option"));
+		return activeOption.getText();
 	}
 
 	@Override
@@ -53,7 +81,8 @@ public class ProductPage extends BasePage {
 
 		private By price = By.className("inventory_item_price");
 
-		private By btnAdd = By.className("button");
+		private ByChained btnAdd = new ByChained(By.tagName("button"),
+				By.className("btn btn_primary btn_small btn_inventory"));
 
 		public InventoryItem(WebElement item) {
 			this.item = item;
@@ -76,12 +105,35 @@ public class ProductPage extends BasePage {
 			return result;
 		}
 
-		public String getName() {			
+		public String getName() {
 			return item.findElement(name).getText();
 		}
-		
-		public WebElement getBtnAdd() {
-			return item.findElement(btnAdd);
+
+		private String addOrRemove(String buttonText) {
+			WebElement button = item.findElement(btnAdd);
+			waitUntilVisible(button);
+			if (button.getText().equalsIgnoreCase(buttonText)) {
+				button.click();
+			}
+			return button.getText();
+		}
+
+		/**
+		 * Click the button to remove, if the label is "remove"
+		 * 
+		 * @return the button label
+		 */
+		public String add() {
+			return addOrRemove("remove");
+		}
+
+		/**
+		 * Click the button to remove, if the label is "add"
+		 * 
+		 * @return the button label
+		 */
+		public String remove() {
+			return addOrRemove("add to cart");
 		}
 
 	}

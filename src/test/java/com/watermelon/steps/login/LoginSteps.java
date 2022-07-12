@@ -23,10 +23,9 @@ public class LoginSteps extends BaseSteps {
 	public static final String LOCKEDOUT_LOGIN = "missing.domain";
 
 	private LoginPage loginPage;
-	
+
 	private ProductPage productPage;
-	
-	 
+
 	@Inject
 	public LoginSteps(LoginPage loginPage, ProductPage productPage) {
 		super();
@@ -47,7 +46,7 @@ public class LoginSteps extends BaseSteps {
 	@When("I enter username as {string} and password as {string}")
 	public void i_enter_credentials(String username, String password) throws Throwable {
 		log.debug("I enter credentials: {}/{}", username, password);
-		loginPage.login(username, password);		
+		loginPage.login(username, password);
 	}
 
 	@Then("I expect validation message as {string} is displayed")
@@ -57,7 +56,7 @@ public class LoginSteps extends BaseSteps {
 		assertThat(errorMessage).as("No error messages").isPresent();
 		assertThat(errorMessage).as("Wrong error message").hasValue(toast);
 	}
-	
+
 	@Given("I am logged as user")
 	public void i_am_logged_as_user(DataTable data) throws Throwable {
 		Map<String, String> credentials = data.entries().stream().findFirst().get();

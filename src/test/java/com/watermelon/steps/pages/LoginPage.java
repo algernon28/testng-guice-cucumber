@@ -9,8 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import com.google.inject.Inject;
 
 import io.cucumber.guice.ScenarioScoped;
+
 @ScenarioScoped
-public class LoginPage extends BasePage {
+public class LoginPage extends SauceLabsPage {
 
 	@FindBy(className = "login_logo")
 	private WebElement imgLoginLogo;
@@ -66,4 +67,5 @@ public class LoginPage extends BasePage {
 		waitUntilVisible(imgBot);
 		return imgBot;
 	}
+
 }

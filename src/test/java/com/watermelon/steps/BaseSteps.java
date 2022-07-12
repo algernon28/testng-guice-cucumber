@@ -29,12 +29,12 @@ public abstract class BaseSteps {
 	protected Actions actions;
 
 	protected Predicate<WebElement> checkElement;
-	
+
 	@Inject
 	protected Configuration config;
 
 	protected BaseSteps() {
-		//log.debug("BaseTest");
+		// log.debug("BaseTest");
 		checkElement = (element) -> (Boolean) ((JavascriptExecutor) driver)
 				.executeScript("return arguments[0].validity.valid;", element);
 	}
