@@ -1,5 +1,6 @@
 package com.watermelon.steps;
 
+import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -15,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class BaseSteps {
+
+	public static final String BASE_MESSAGENAME = "messages";
 
 	@Inject
 	protected WebDriver driver;
@@ -32,6 +35,9 @@ public abstract class BaseSteps {
 
 	@Inject
 	protected Configuration config;
+
+	@Inject
+	protected ResourceBundle bundle;
 
 	protected BaseSteps() {
 		// log.debug("BaseTest");

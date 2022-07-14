@@ -1,13 +1,14 @@
-package com.watermelon.steps.pages;
+package com.watermelon.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.watermelon.core.WebPage;
+import com.google.inject.Inject;
 
-public class SideMenu extends WebPage {
+public class SideMenu extends SauceLabsSection {
 
 	@FindBy(id = "react-burger-cross-btn")
 	@CacheLookup
@@ -29,13 +30,21 @@ public class SideMenu extends WebPage {
 	@CacheLookup
 	private WebElement resetAppState;
 
-	public SideMenu(WebDriver driver) {
-		super(driver);
+	@Inject
+	public SideMenu(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 	}
 
 	@Override
-	public WebElement title() {
+	public WebElement getTitle() {
 		return allItems;
+	}
+
+	@Override
+	public boolean isLoaded() {
+		WebElement pageTitle = getTitle();
+		waitUntilVisible(pageTitle);
+		return pageTitle.isDisplayed();
 	}
 
 }

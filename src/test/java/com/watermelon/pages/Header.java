@@ -1,13 +1,14 @@
-package com.watermelon.steps.pages;
+package com.watermelon.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.watermelon.core.WebPage;
+import com.google.inject.Inject;
 
-public class Header extends WebPage {
+public class Header extends SauceLabsSection{
 
 	@FindBy(id = "react-burger-menu-btn")
 	@CacheLookup
@@ -18,13 +19,16 @@ public class Header extends WebPage {
 	private WebElement shoppingCart;
 
 	@FindBy(className = "shopping_cart_badge")
+	@CacheLookup
 	private WebElement cartBadge;
 
 	@FindBy(className = "app_logo")
+	@CacheLookup
 	private WebElement appLogo;
 
-	public Header(WebDriver driver) {
-		super(driver);
+	@Inject
+	public Header(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 	}
 
 	public void openShoppingCart() {
@@ -39,9 +43,16 @@ public class Header extends WebPage {
 	}
 
 	@Override
-	public WebElement title() {
+	public WebElement getTitle() {
 		waitUntilVisible(appLogo);
 		return appLogo;
+	}
+
+	@Override
+	public boolean isLoaded() {
+		WebElement pageTitle = getTitle();
+		waitUntilVisible(pageTitle);
+		return pageTitle.isDisplayed();
 	}
 
 }

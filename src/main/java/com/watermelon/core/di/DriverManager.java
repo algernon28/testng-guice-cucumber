@@ -55,17 +55,15 @@ public class DriverManager implements Provider<WebDriver> {
 		case CHROME, CHROMIUM:
 			if (myVersion.isPresent()) {
 				wdmConfig.setChromeDriverVersion(myVersion.get());
-			}
+			} 
 			ChromeOptions chOptions = new ChromeOptions();
 			arg = String.format("--lang=%s_%s", myLanguage, myCountry);
 			chOptions.addArguments(arg).setAcceptInsecureCerts(true).setCapability(ChromeOptions.CAPABILITY, chOptions);
+			wdm.clearResolutionCache();
 			driver = wdm.capabilities(chOptions).create();
 			logger.debug("ChromeDriver built: {}", driver);
 			break;
 		case FIREFOX:
-			if (myArchitecture.isPresent()) {
-				wdmConfig.setArchitecture(Architecture.valueOf(myArchitecture.get()));
-			}
 			if (myVersion.isPresent()) {
 				wdmConfig.setFirefoxVersion(myVersion.get());
 			}
@@ -81,9 +79,6 @@ public class DriverManager implements Provider<WebDriver> {
 			logger.debug("FireFoxDriver built: {}", driver);
 			break;
 		case EDGE:
-			if (myArchitecture.isPresent()) {
-				wdmConfig.setArchitecture(Architecture.valueOf(myArchitecture.get()));
-			}
 			if (myVersion.isPresent()) {
 				wdmConfig.setEdgeDriverVersion(myVersion.get());
 			}

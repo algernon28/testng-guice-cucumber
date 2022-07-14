@@ -3,11 +3,10 @@ Feature: Login
 
   Background: 
     Given I am on the login page
-    When I enter username as '<username>' and password as '<password>'
 
   @login
   Scenario Outline: Login with correct credentials
-    When I enter username as '<username>' and password as '<password>'
+    When I enter username as "<username>" and password as "<password>"
     Then I land on the Products page
 
     Examples: 

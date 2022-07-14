@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="515226b8-8a92-4b3f-8e5f-ac7f0a1c36f8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.dbeaver/project-settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/watermelon/core/WebPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/watermelon/core/WebPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/Hooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/Hooks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/login/LoginSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/login/LoginSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/Header.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/ProductPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/ProductPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/SideMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/pages/SideMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/products/ProductSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/watermelon/steps/products/ProductSteps.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Bvd5PuYYbfk7SETmMOmU3kS2lv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="515226b8-8a92-4b3f-8e5f-ac7f0a1c36f8" name="Changes" comment="" />
+      <created>1657790314823</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657790314823</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

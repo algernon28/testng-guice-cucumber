@@ -20,6 +20,7 @@ public class Utils {
 	public static final OperatingSystem DEFAULT_OS = OperatingSystem.WIN;
 	public static final String DEFAULT_COUNTRY = "US";
 	public static final String DEFAULT_BROWSER = "Chrome";
+	public static final String DEFAULT_VERSION = "latest";
 
 	private Utils() {
 

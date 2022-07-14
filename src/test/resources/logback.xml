@@ -7,6 +7,8 @@
      <logger name="org.apache" level="ERROR"/>
      <logger name="httpclient" level="ERROR"/>
      <logger name="org.asynchttpclient.netty"  level="OFF"/>
+     <!--<logger name="io.netty"  level="OFF"/>-->
+     <logger name="org.testng.internal" level="OFF"/>
   <root level="debug">
     <appender-ref ref="STDOUT" />
   </root>

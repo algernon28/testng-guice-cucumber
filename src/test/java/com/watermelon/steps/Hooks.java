@@ -1,26 +1,28 @@
-package com.watermelon.core;
+package com.watermelon.steps;
 
+import java.net.MalformedURLException;
 import java.util.Optional;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Guice;
 
 import com.google.inject.Inject;
-import com.watermelon.core.di.ConfigurationModule;
+import com.watermelon.core.di.Configuration;
 import com.watermelon.core.di.DriverManager;
-import com.watermelon.core.di.DriverManagerModule;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 
-@Guice(modules = { DriverManagerModule.class, ConfigurationModule.class })
 public class Hooks extends AbstractTestNGCucumberTests {
 	@Inject
 	WebDriver driver;
+	
+	@Inject
+	Configuration config;
 
 	@Before
-	public void setContext() {
+	public void startUp() throws MalformedURLException {
+		driver.navigate().to(config.getServer().getURL());		
 	}
 
 	@After

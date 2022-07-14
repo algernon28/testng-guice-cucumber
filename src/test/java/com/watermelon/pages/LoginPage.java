@@ -1,17 +1,19 @@
-package com.watermelon.steps.pages;
+package com.watermelon.pages;
 
 import java.util.Optional;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.inject.Inject;
+import com.watermelon.core.WebPage;
 
 import io.cucumber.guice.ScenarioScoped;
 
 @ScenarioScoped
-public class LoginPage extends SauceLabsPage {
+public class LoginPage extends WebPage {
 
 	@FindBy(className = "login_logo")
 	private WebElement imgLoginLogo;
@@ -32,8 +34,8 @@ public class LoginPage extends SauceLabsPage {
 	private WebElement errorMessage;
 
 	@Inject
-	public LoginPage(WebDriver driver) {
-		super(driver);
+	public LoginPage(WebDriver driver, WebDriverWait wait) {
+		super(driver, wait);
 	}
 
 	public void submit() {
@@ -63,9 +65,15 @@ public class LoginPage extends SauceLabsPage {
 	}
 
 	@Override
-	public WebElement title() {
+	public WebElement getTitle() {
 		waitUntilVisible(imgBot);
 		return imgBot;
+	}
+	@Override
+	public boolean isLoaded() {
+		WebElement pageTitle = getTitle();
+		waitUntilVisible(pageTitle);
+		return pageTitle.isDisplayed();
 	}
 
 }

@@ -18,7 +18,6 @@ public abstract class WebPage {
 
 	protected WebDriver driver;
 
-	@Inject
 	protected WebDriverWait wait;
 
 	@Inject
@@ -27,8 +26,9 @@ public abstract class WebPage {
 	@Inject
 	protected Configuration configuration;
 
-	protected WebPage(WebDriver driver) {
+	protected WebPage(WebDriver driver, WebDriverWait wait) {
 		this.driver = driver;
+		this.wait = wait;
 		PageFactory.initElements(driver, this);
 		if (!this.isLoaded()) {
 			String msg = String.format("Could not load page %s", getClass().getSimpleName());
@@ -36,13 +36,17 @@ public abstract class WebPage {
 		}
 	}
 
-	public abstract WebElement title();
+	/**
+	 * 
+	 * @return the element identifying the page
+	 */
+	public abstract WebElement getTitle();
 
-	public boolean isLoaded() {
-		WebElement pageTitle = title();
-		waitUntilVisible(pageTitle);
-		return pageTitle.isDisplayed();
-	}
+	/**
+	 * 
+	 * @return {@code true} if {@link #getTitle()} returns true, {@code false} otherwise
+	 */
+	public abstract boolean isLoaded();
 
 	public void navigateTo(URL url) {
 		driver.navigate().to(url);
