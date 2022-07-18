@@ -37,6 +37,7 @@ public class ConfigurationModule extends AbstractModule {
 		String stage = Optional.ofNullable(System.getenv(CONFIGFILE_PARAM))
 				.orElse(System.getProperty(CONFIGFILE_PARAM));
 		Configuration config = Utils.loadYaml(Configuration.class, stage);
+		config.setGithubToken(System.getProperty("githubToken"));
 		log.debug("Configuration loaded: {}", config);
 		return config;
 	}

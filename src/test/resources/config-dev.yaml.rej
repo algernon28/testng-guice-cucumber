@@ -1,0 +1,6 @@
+diff a/src/test/resources/config-dev.yaml b/src/test/resources/config-dev.yaml	(rejected hunks)
+@@ -2,3 +3,4 @@
++githubToken: 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
+ server:
+    protocol: https
+    host: www.saucedemo.com

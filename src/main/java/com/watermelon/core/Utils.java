@@ -9,6 +9,8 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.PropertyUtils;
 import org.yaml.snakeyaml.representer.Representer;
 
+import com.watermelon.core.di.Configuration;
+
 import io.github.bonigarcia.wdm.config.Architecture;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,13 @@ public class Utils {
 
 	}
 
+	/**
+	 * 
+	 * @param <T> the type representing the configuration data (ex: {@linkplain Configuration})
+	 * @param clazz the class object of 
+	 * @param fileName the name of the yaml configuration file. It is resolved from the classpath.
+	 * @return
+	 */
 	public static <T> T loadYaml(Class<T> clazz, String fileName) {
 		Constructor constructor = new Constructor(clazz);
 		PropertyUtils props = new PropertyUtils();
