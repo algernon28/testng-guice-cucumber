@@ -1,10 +1,10 @@
-package com.watermelon.tests.webelements;
+package com.watermelon.core.webelements;
 
 import org.openqa.selenium.WebElement;
 
 /**
  * Wrap a checkbox Webelement, providing convenience methods to check/uncheck it
- * 
+ *
  * @author AM
  *
  */

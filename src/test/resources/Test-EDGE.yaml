@@ -1,13 +1,12 @@
 name: Test-method Suite
 tests:
--  name: Test-Login EN FIREFOX
+-  name: SauceLabs EN EDGE
    parameters:
-      browser: Firefox
+      browser: EDGE
 #The following parameters are optional, the defaults are taken from Utils
       language: en
       country: US
       architecture: X64
-      platform: WIN
       version: latest
    classes:
-   - com.watermelon.steps.CucumberRunner
+   - com.watermelon.steps.CucumberEdgeRunner

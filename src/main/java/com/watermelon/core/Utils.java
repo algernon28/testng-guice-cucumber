@@ -48,9 +48,10 @@ public class Utils {
 		return lookupParameter(key, null, context);
 	}
 
-	public static Optional<String> lookupProperty(String key, String fallback) {
-		String result = (System.getProperty(key) != null) ? System.getProperty(key) : fallback;
+	public static Optional<String> lookupProperty(String key) {
+		Optional<String> result = Optional.ofNullable(System.getProperty(key));
 		log.debug("Returning property: {}", result);
-		return Optional.ofNullable(result);
+		return result;
 	}
+
 }

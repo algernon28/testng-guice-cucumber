@@ -21,7 +21,6 @@ public class LoginSteps extends BaseSteps {
 
 	public static final String WRONG_LOGIN = "login.wrong";
 
-
 	private LoginPage loginPage;
 
 	@Inject
@@ -32,10 +31,9 @@ public class LoginSteps extends BaseSteps {
 
 	@Given("I am on the login page")
 	public void i_land_on_the_login_page() throws Throwable {
-		// assertThat(loginPage.)
 		log.debug("Driver: {}", driver);
 		log.debug("{}", driver.getCurrentUrl());
-		assertThat(loginPage).as("Login page did not show").returns(true, from(LoginPage::isLoaded));
+		assertThat(loginPage).withFailMessage("Login page did not show").returns(true, from(LoginPage::isLoaded));
 
 	}
 
@@ -50,8 +48,8 @@ public class LoginSteps extends BaseSteps {
 		String expected = bundle.getString(messageKey);
 		log.debug("I expect message: {}", expected);
 		Optional<String> actual = loginPage.errorMessage();
-		assertThat(actual).as("No error messages displayed").isPresent();
-		assertThat(actual).as("Wrong error message displayed").hasValue(expected);
+		assertThat(actual).withFailMessage("No error messages displayed").isPresent();
+		assertThat(actual).withFailMessage("Wrong error message displayed").hasValue(expected);
 	}
 
 	@Given("I am logged as user")
@@ -61,6 +59,8 @@ public class LoginSteps extends BaseSteps {
 		String password = credentials.get("password");
 		i_land_on_the_login_page();
 		i_enter_credentials(username, password);
+		String user = driver.manage().getCookieNamed("session-username").getValue();
+		assertThat(user).withFailMessage("User is not logged with the right credentials").isEqualTo(username);
 	}
 
 }

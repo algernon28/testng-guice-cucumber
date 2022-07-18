@@ -18,7 +18,7 @@ import io.cucumber.guice.ScenarioScoped;
 
 /**
  * Makes Make {@link ResourceBundle} available to Guice
- * 
+ *
  * @author AM
  *
  */
@@ -45,8 +45,8 @@ public class ConfigurationModule extends AbstractModule {
 	@ScenarioScoped
 	public Locale getLocale() {
 		Locale.setDefault(Locale.ENGLISH);
-		String language = Utils.lookupProperty("language", DEFAULT_LANG).get();
-		String country = Utils.lookupProperty("country", DEFAULT_COUNTRY).get();
+		String language = Utils.lookupProperty("language").orElse(DEFAULT_LANG);
+		String country = Utils.lookupProperty("country").orElse(DEFAULT_COUNTRY);
 		return new Locale(language, country);
 	}
 

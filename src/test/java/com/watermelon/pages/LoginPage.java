@@ -38,15 +38,19 @@ public class LoginPage extends WebPage {
 		super(driver, wait);
 	}
 
-	public void submit() {
+	private void submit() {
 		waitUntilVisible(btnLogin).click();
 	}
 
 	public void login(String username, String password) {
+		typeCredentials(username, password);
+		submit();
+	}
+
+	public void typeCredentials(String username, String password) {
 		clearAll(txtUsername, txtPassword);
 		type(txtUsername, username);
 		type(txtPassword, password);
-		submit();
 	}
 
 	public void clearFields() {

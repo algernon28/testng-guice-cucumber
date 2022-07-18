@@ -1,6 +1,5 @@
 name: Test-method Suite
 suiteFiles:
-- Test-EN-CHROME.yaml
-- Test-IT-CHROME.yaml
-- Test-EN-FIREFOX.yaml
-- Test-IT-FIREFOX.yaml
+- Test-CHROME.yaml
+- Test-FIREFOX.yaml
+- Test-EDGE.yaml

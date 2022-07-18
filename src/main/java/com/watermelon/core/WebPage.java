@@ -37,14 +37,15 @@ public abstract class WebPage {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the element identifying the page
 	 */
 	public abstract WebElement getTitle();
 
 	/**
-	 * 
-	 * @return {@code true} if {@link #getTitle()} returns true, {@code false} otherwise
+	 *
+	 * @return {@code true} if {@link #getTitle()} returns true, {@code false}
+	 *         otherwise
 	 */
 	public abstract boolean isLoaded();
 

@@ -2,6 +2,7 @@ package com.watermelon.pages;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -60,7 +61,7 @@ public class InventoryItem {
 
 	/**
 	 * Click the button to remove, if the label is "remove"
-	 * 
+	 *
 	 * @return the button label
 	 */
 	public String add() {
@@ -69,11 +70,26 @@ public class InventoryItem {
 
 	/**
 	 * Click the button to remove, if the label is "add"
-	 * 
+	 *
 	 * @return the button label
 	 */
 	public String remove() {
 		return addOrRemove("add to cart");
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof InventoryItem))
+			return false;
+		InventoryItem other = (InventoryItem) obj;
+		return Objects.equals(name, other.name) && Objects.equals(price, other.price);
 	}
 
 }

@@ -7,7 +7,9 @@ import lombok.Data;
 
 @Data
 public class Configuration {
+	private String githubToken;
 	private Server server;
+	private Reporting reporting;
 
 	@Data
 	public static class Server {
@@ -19,5 +21,17 @@ public class Configuration {
 		public URL getURL() throws MalformedURLException {
 			return new URL(protocol, host, port, resource);
 		}
+	}
+
+	@Data
+	public static class Reporting {
+		public enum LEVEL {
+			SUCCESS, FAIL
+		}
+
+		private LEVEL screenshotLevel;
+//		public LEVEL getScreenshotLevel(String level) {
+//			return LEVEL.valueOf(level);
+//		}
 	}
 }

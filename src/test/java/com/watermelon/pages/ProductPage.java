@@ -1,8 +1,9 @@
 package com.watermelon.pages;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -42,6 +43,7 @@ public class ProductPage extends SauceLabsPage {
 
 		private SORT_METHOD(String label) {
 			this.label = label;
+
 		}
 	}
 
@@ -52,7 +54,6 @@ public class ProductPage extends SauceLabsPage {
 	public List<InventoryItem> getItems(SORT_METHOD method) {
 		Comparator<InventoryItem> compByName = Comparator.comparing(InventoryItem::getName);
 		Comparator<InventoryItem> compByPrice = Comparator.comparing(InventoryItem::getPrice);
-
 		List<InventoryItem> result = List.of();
 		switch (method) {
 		case AZ -> result = items.stream().map(el -> new InventoryItem(el)).sorted(compByName).toList();
@@ -63,17 +64,47 @@ public class ProductPage extends SauceLabsPage {
 		return result;
 	}
 
+	public List<InventoryItem> getItems(String method) {
+		SORT_METHOD sortMethod = findSortMethodValue(method);
+		return getItems(sortMethod);
+	}
+
+	private SORT_METHOD findSortMethodValue(String method) {
+		Map<String, SORT_METHOD> sortMap = new HashMap<>();
+		for (SORT_METHOD s : SORT_METHOD.values()) {
+			sortMap.put(s.label, s);
+		}
+		return sortMap.get(method);
+	}
+
 	/**
-	 * 
-	 * @param method the sort method
+	 *
+	 * @param method the sort method (display value)
 	 * @return the text of the active option
 	 */
+	public String sortItemsBy(String method) {
+		waitUntilVisible(sorter);
+		Select filter = new Select(sorter);
+		filter.selectByVisibleText(method);
+		WebElement activeOption = driver.findElement(By.className("active_option"));
+		return activeOption.getText();
+	}
+
 	public String sortItemsBy(SORT_METHOD method) {
 		waitUntilVisible(sorter);
 		Select filter = new Select(sorter);
-		filter.selectByVisibleText(method.label);
-		WebElement activeOption = driver.findElement(By.className("active_option"));
-		return activeOption.getText();
+		filter.selectByValue(method.name().toLowerCase());
+		return getSortValue();
+	}
+
+	/**
+	 *
+	 * @return the text of the active option
+	 */
+	public String getSortValue() {
+		String value = driver.findElement(By.className("active_option")).getText();
+		log.debug("Active filter selection: {}", value);
+		return value;
 	}
 
 	@Override

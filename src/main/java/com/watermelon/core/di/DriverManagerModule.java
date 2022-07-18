@@ -45,7 +45,5 @@ public class DriverManagerModule extends AbstractModule {
 	@Provides
 	public WebDriverWait getWait(WebDriver driver) {
 		return new WebDriverWait(driver, DefaultTimeout, DefaultTimeoutInterval);
-		// return new WebDriverWait(driver, DefaultTimeout.getSeconds(),
-		// DefaultTimeoutInterval.getSeconds());
 	}
 }

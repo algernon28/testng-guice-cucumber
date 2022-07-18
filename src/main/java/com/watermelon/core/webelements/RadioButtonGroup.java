@@ -1,4 +1,4 @@
-package com.watermelon.tests.webelements;
+package com.watermelon.core.webelements;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 /**
  * Wraps a list of radiobutton Webelements as a group
- * 
+ *
  * @author AM
  *
  */
@@ -19,7 +19,7 @@ public class RadioButtonGroup {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the value of the selected button
 	 */
 	public Optional<String> getSelectedValue() {
@@ -33,7 +33,7 @@ public class RadioButtonGroup {
 
 	/**
 	 * Select a radiobutton by its value
-	 * 
+	 *
 	 * @param value the value of the button to select
 	 */
 	public void selectByValue(String value) {
