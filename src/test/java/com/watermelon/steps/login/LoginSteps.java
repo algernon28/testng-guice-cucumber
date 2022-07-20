@@ -1,7 +1,7 @@
 package com.watermelon.steps.login;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.from;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.Map;
 import java.util.Optional;
@@ -15,7 +15,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 public class LoginSteps extends BaseSteps {
 
@@ -27,13 +26,14 @@ public class LoginSteps extends BaseSteps {
 	public LoginSteps(LoginPage loginPage) {
 		super();
 		this.loginPage = loginPage;
+		this.loginPage.verify();
 	}
 
 	@Given("I am on the login page")
 	public void i_land_on_the_login_page() throws Throwable {
 		log.debug("Driver: {}", driver);
 		log.debug("{}", driver.getCurrentUrl());
-		assertThat(loginPage).withFailMessage("Login page did not show").returns(true, from(LoginPage::isLoaded));
+		then(loginPage).withFailMessage("Login page did not show").returns(true, from(LoginPage::isLoaded));
 
 	}
 
@@ -48,8 +48,8 @@ public class LoginSteps extends BaseSteps {
 		String expected = bundle.getString(messageKey);
 		log.debug("I expect message: {}", expected);
 		Optional<String> actual = loginPage.errorMessage();
-		assertThat(actual).withFailMessage("No error messages displayed").isPresent();
-		assertThat(actual).withFailMessage("Wrong error message displayed").hasValue(expected);
+		then(actual).withFailMessage("No error messages displayed").isPresent();
+		then(actual).as("Wrong error message displayed").hasValue(expected);
 	}
 
 	@Given("I am logged as user")
@@ -60,7 +60,7 @@ public class LoginSteps extends BaseSteps {
 		i_land_on_the_login_page();
 		i_enter_credentials(username, password);
 		String user = driver.manage().getCookieNamed("session-username").getValue();
-		assertThat(user).withFailMessage("User is not logged with the right credentials").isEqualTo(username);
+		then(user).as("User is not logged with the right credentials").isEqualTo(username);
 	}
 
 }

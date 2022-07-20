@@ -73,11 +73,5 @@ public class LoginPage extends WebPage {
 		waitUntilVisible(imgBot);
 		return imgBot;
 	}
-	@Override
-	public boolean isLoaded() {
-		WebElement pageTitle = getTitle();
-		waitUntilVisible(pageTitle);
-		return pageTitle.isDisplayed();
-	}
 
 }

@@ -17,7 +17,8 @@ import com.watermelon.core.Utils;
 import io.cucumber.guice.ScenarioScoped;
 
 /**
- * Makes Make {@link ResourceBundle} available to Guice
+ * Make the following objects available for Dependency Injection:
+ * {@link Configuration}, {@link Locale}, {@link ResourceBundle}
  *
  * @author AM
  *
@@ -52,6 +53,7 @@ public class ConfigurationModule extends AbstractModule {
 	}
 
 	@Provides
+	@ScenarioScoped
 	public ResourceBundle getBundle(Locale locale) {
 		return ResourceBundle.getBundle("messages", locale);
 	}

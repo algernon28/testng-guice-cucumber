@@ -1,4 +1,4 @@
-package com.watermelon.pages;
+package com.watermelon.pages.products;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.inject.Inject;
+import com.watermelon.pages.SauceLabsPage;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -99,6 +100,15 @@ public class ProductPage extends SauceLabsPage {
 
 	/**
 	 *
+	 * @return the element identifying the page
+	 */
+	public WebElement getTitle() {
+		waitUntilVisible(title);
+		return title;
+	}
+	
+	/**
+	 *
 	 * @return the text of the active option
 	 */
 	public String getSortValue() {
@@ -107,16 +117,4 @@ public class ProductPage extends SauceLabsPage {
 		return value;
 	}
 
-	@Override
-	public WebElement getTitle() {
-		waitUntilVisible(title);
-		return title;
-	}
-
-	@Override
-	public boolean isLoaded() {
-		WebElement pageTitle = getTitle();
-		waitUntilVisible(pageTitle);
-		return pageTitle.isDisplayed();
-	}
 }

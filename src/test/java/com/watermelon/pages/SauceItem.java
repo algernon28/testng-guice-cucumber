@@ -6,32 +6,26 @@ import java.util.Objects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.ByChained;
+import org.openqa.selenium.support.locators.RelativeLocator;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class InventoryItem {
+public class SauceItem implements Comparable<SauceItem> {
 
-	private WebElement item;
+	protected WebElement item;
 
-	private By image = By.tagName("img");
+	protected By name = By.className("inventory_item_name");
 
-	private By name = By.className("inventory_item_name");
+	protected By description = RelativeLocator.with(By.className("inventory_item_desc")).below(name);
 
-	private By description = By.className("inventory_item_desc");
+	protected By price = By.className("inventory_item_price");
 
-	private By price = By.className("inventory_item_price");
+	protected By btnAdd = By.tagName("button");
 
-	private ByChained btnAdd = new ByChained(By.tagName("button"));
-
-	public InventoryItem(WebElement item) {
+	public SauceItem(WebElement item) {
 		this.item = item;
-	}
-
-	public String getImageSrcFileName() {
-		return item.findElement(image).getAttribute("src");
 	}
 
 	public String getDescription() {
@@ -51,12 +45,18 @@ public class InventoryItem {
 		return item.findElement(name).getText();
 	}
 
-	private String addOrRemove(String buttonText) {
+	/**
+	 * Click the button to remove, if the label is "add to cart"
+	 *
+	 * @return the button label
+	 */
+	public String add() {
 		WebElement button = item.findElement(btnAdd);
-		if (button.getText().equalsIgnoreCase(buttonText)) {
+		String label = button.getText();
+		if ("add to cart".equalsIgnoreCase(label)) {
 			button.click();
 		}
-		return button.getText();
+		return label;
 	}
 
 	/**
@@ -64,17 +64,13 @@ public class InventoryItem {
 	 *
 	 * @return the button label
 	 */
-	public String add() {
-		return addOrRemove("remove");
-	}
-
-	/**
-	 * Click the button to remove, if the label is "add"
-	 *
-	 * @return the button label
-	 */
 	public String remove() {
-		return addOrRemove("add to cart");
+		WebElement button = item.findElement(btnAdd);
+		String label = button.getText();
+		if ("remove".equalsIgnoreCase(label)) {
+			button.click();
+		}
+		return label;
 	}
 
 	@Override
@@ -86,11 +82,15 @@ public class InventoryItem {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof InventoryItem))
+		if (!(obj instanceof SauceItem))
 			return false;
-		InventoryItem other = (InventoryItem) obj;
+		SauceItem other = (SauceItem) obj;
 		return Objects.equals(name, other.name) && Objects.equals(price, other.price);
 	}
 
-}
+	@Override
+	public int compareTo(SauceItem other) {
+		return this.getName().compareTo(other.getName());
+	}
 
+}

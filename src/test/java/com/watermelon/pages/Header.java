@@ -1,5 +1,8 @@
 package com.watermelon.pages;
 
+import java.util.Optional;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -18,10 +21,6 @@ public class Header extends SauceLabsSection{
 	@CacheLookup
 	private WebElement shoppingCart;
 
-	@FindBy(className = "shopping_cart_badge")
-	@CacheLookup
-	private WebElement cartBadge;
-
 	@FindBy(className = "app_logo")
 	@CacheLookup
 	private WebElement appLogo;
@@ -37,8 +36,14 @@ public class Header extends SauceLabsSection{
 	}
 
 	public int getBadgeCount() {
-		waitUntilVisible(cartBadge);
-		String count = cartBadge.getText();
+		//wait for the cart being displayed first
+		waitUntilVisible(shoppingCart);
+		By badgeLocator = By.className("shopping_cart_badge");
+		String count = "0";
+		Optional<WebElement> badge = isPresent(badgeLocator);
+		if(badge.isPresent()) {
+			count = badge.get().getText();
+		}
 		return Integer.parseInt(count);
 	}
 

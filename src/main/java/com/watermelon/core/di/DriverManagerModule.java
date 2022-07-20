@@ -13,18 +13,18 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
 /**
- * Makes Make {@link DriverManager} available to Guice
+ * Make the following objects available for Dependency Injection:
+ * {@link DriverManager}, {@link JavascriptExecutor}, {@link WebDriverWait}, {@link Actions}
  *
  * @author AM
  *
  */
-
 public class DriverManagerModule extends AbstractModule {
 
 	private static final Logger logger = LoggerFactory.getLogger(DriverManagerModule.class);
 
-	private static final Duration DefaultTimeout = Duration.ofSeconds(30);
-	private static final Duration DefaultTimeoutInterval = Duration.ofMillis(500);
+	public static final Duration DefaultTimeout = Duration.ofSeconds(30);
+	public static final Duration DefaultTimeoutInterval = Duration.ofMillis(500);
 
 	@Override
 	protected void configure() {

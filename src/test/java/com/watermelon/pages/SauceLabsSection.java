@@ -7,7 +7,6 @@ import com.watermelon.core.WebPage;
 
 public abstract class SauceLabsSection extends WebPage {
 
-
 	public SauceLabsSection(WebDriver driver, WebDriverWait wait) {
 		super(driver, wait);
 	}

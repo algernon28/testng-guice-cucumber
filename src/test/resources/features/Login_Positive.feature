@@ -1,10 +1,10 @@
+@login
 Feature: Login
   Test the login with different combinations
 
   Background: 
     Given I am on the login page
 
-  @login
   Scenario Outline: Login with correct credentials
     When I enter username as "<username>" and password as "<password>"
     Then I land on the Products page

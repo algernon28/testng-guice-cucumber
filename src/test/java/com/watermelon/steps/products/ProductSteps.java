@@ -1,16 +1,19 @@
 package com.watermelon.steps.products;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.from;
+import static org.assertj.core.api.BDDAssertions.then;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.inject.Inject;
-import com.watermelon.pages.InventoryItem;
-import com.watermelon.pages.ProductPage;
-import com.watermelon.pages.ProductPage.SORT_METHOD;
+import com.watermelon.pages.Header;
+import com.watermelon.pages.products.InventoryItem;
+import com.watermelon.pages.products.ProductPage;
+import com.watermelon.pages.products.ProductPage.SORT_METHOD;
 import com.watermelon.steps.BaseSteps;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import lombok.extern.slf4j.Slf4j;
@@ -21,41 +24,100 @@ public class ProductSteps extends BaseSteps {
 	public static final String WRONG_LOGIN = "login.wrong";
 	public static final String LOCKEDOUT_LOGIN = "missing.domain";
 
-	@Inject
 	private ProductPage productPage;
+	
+	private Header headerPage;
 
-	public ProductSteps() {
+	@Inject
+	public ProductSteps(ProductPage productPage, Header headerPage) {
 		super();
+		this.productPage = productPage;
+		this.headerPage = headerPage;
 	}
 
 	@Then("the number of products presented is {int}")
 	public void the_number_of_products_is(int count) {
 		int actualCount = productPage.getItems().size();
-		assertThat(actualCount).withFailMessage("The number of item does not match").isEqualTo(count);
+		then(actualCount).as("The number of item does not match").isEqualTo(count);
 	}
 
-	@And("I sort the items for {string}")
-	public void i_sort_the_items(String method) {
-		SORT_METHOD sortMethod = SORT_METHOD.valueOf(method.toUpperCase());
-		String currentSortMethod = productPage.sortItemsBy(sortMethod);
-		assertThat(currentSortMethod).withFailMessage("The filter element did not update").isEqualTo(sortMethod.label.toUpperCase());
+	@And("I sort the products")
+	public void i_sort_the_items(DataTable data) {
+		List<Map<String, String>> methods = data.entries();
+		methods.forEach(row -> {
+			String sortText = row.get("sort value");
+			SORT_METHOD sortMethod = SORT_METHOD.valueOf(sortText.toUpperCase());
+			String currentSortMethod = productPage.sortItemsBy(sortMethod);
+			then(currentSortMethod).as("The filter element did not update").isEqualTo(sortMethod.label.toUpperCase());
+			sortItems(sortMethod.label);
+		});
 
+	}
+
+	private void sortItems(String method) {
+		log.debug("sorted!");
+		List<InventoryItem> actualItems = productPage.getItems();
+		List<InventoryItem> expectedItems = productPage.getItems(method);
+		then(actualItems).as("Products were not correctly ordered").isEqualTo(expectedItems);
 	}
 
 	@And("I land on the Products page")
 	public void i_land_on_products_page() {
-		assertThat(productPage).withFailMessage("Products page did not show").returns(true,
-				from(ProductPage::isLoaded));
+		then(productPage).as("Products page did not show").returns(true, from(ProductPage::isLoaded));
 
 	}
 
-	@Then("the items are correctly sorted for {string}")
-	public void the_items_are_sorted(String method) {
-		log.debug("sorted!");
-		List<InventoryItem> actualItems = productPage.getItems();
-		List<InventoryItem> expectedItems = productPage.getItems(method);
-		assertThat(actualItems).withFailMessage("Products were not correctly ordered")
-				.isEqualTo(expectedItems);
+	@And("the cart badge shows {int}")
+	public void cart_badge_shows_int(int value) {
+		int badgeCount = headerPage.getBadgeCount();
+		if (value > 0) {
+			then(badgeCount).withFailMessage("There was no badge displayed").isNotZero();
+		}
+		then(badgeCount).as("The badge on the cart displayed wrong value").isEqualTo(value);
+	}
+
+	@Then("the cart badge shows nothing")
+	public void cart_badge_shows_nothing() {
+		cart_badge_shows_int(0);
+	}
+
+	@And("I add products")
+	public void i_add_products(DataTable data) {
+		addOrRemove(data, true);
+	}
+
+	@And("I add {string} as products")
+	public void i_add_products(String items) {
+		List<String> entries = List.of(items.split(","));
+		List<InventoryItem> products = productPage.getItems().stream().filter(p -> entries.contains(p.getName()))
+				.toList();
+		addOrRemove(products, true);
+	}
+
+	@And("I remove products")
+	public void i_remove_products(DataTable data) {
+		addOrRemove(data, false);
+	}
+
+	private void addOrRemove(List<InventoryItem> items, boolean add) {
+		if (add) {
+			items.forEach(InventoryItem::add);
+		} else {
+			items.forEach(InventoryItem::remove);
+		}
+
+	}
+
+	private void addOrRemove(DataTable data, boolean add) {
+		List<String> entries = data.asList();
+		List<InventoryItem> products = productPage.getItems().stream().filter(p -> entries.contains(p.getName()))
+				.toList();
+		addOrRemove(products, add);
+	}
+
+	@And("I enter the cart page")
+	public void i_enter_the_cart_page() {
+		headerPage.openShoppingCart();
 	}
 
 }

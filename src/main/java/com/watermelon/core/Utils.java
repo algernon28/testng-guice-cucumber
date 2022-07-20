@@ -29,11 +29,11 @@ public class Utils {
 	}
 
 	/**
-	 * 
+	 * Deserialize the yaml configuration file into an instance of T type 
 	 * @param <T> the type representing the configuration data (ex: {@linkplain Configuration})
-	 * @param clazz the class object of 
+	 * @param clazz the class object holding the type
 	 * @param fileName the name of the yaml configuration file. It is resolved from the classpath.
-	 * @return
+	 * @return the populated configuration object 
 	 */
 	public static <T> T loadYaml(Class<T> clazz, String fileName) {
 		Constructor constructor = new Constructor(clazz);
@@ -46,17 +46,24 @@ public class Utils {
 		return yamlConfig.load(is);
 	}
 
-	public static Optional<String> lookupParameter(String key, String fallback, XmlTest context) {
-		String param = context.getParameter(key);
-		String result = (param != null) ? param : fallback;
-		log.debug("Returning property: {}", result);
-		return Optional.ofNullable(result);
-	}
-
+	/**
+	 * Lookup a parameter from a TestNG suite context
+	 * @param key the name of the parameter
+	 * @param context the {@link XmlTest} context from the TestNG suite file
+	 * @return the value of the parameter
+	 */
 	public static Optional<String> lookupParameter(String key, XmlTest context) {
-		return lookupParameter(key, null, context);
-	}
+			String param = context.getParameter(key);
+			Optional<String> result = Optional.ofNullable(param);
+			log.debug("Returning property: {}", result);
+			return result;
+		}
 
+	/**
+	 * 
+	 * @param key the name of the property
+	 * @return the value of the System property
+	 */
 	public static Optional<String> lookupProperty(String key) {
 		Optional<String> result = Optional.ofNullable(System.getProperty(key));
 		log.debug("Returning property: {}", result);

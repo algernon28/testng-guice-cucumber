@@ -40,11 +40,4 @@ public class SideMenu extends SauceLabsSection {
 		return allItems;
 	}
 
-	@Override
-	public boolean isLoaded() {
-		WebElement pageTitle = getTitle();
-		waitUntilVisible(pageTitle);
-		return pageTitle.isDisplayed();
-	}
-
 }

@@ -26,6 +26,13 @@ import io.github.bonigarcia.wdm.config.DriverManagerType;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import io.github.bonigarcia.wdm.config.WebDriverManagerException;
 
+/**
+ * Service Provider: provides a thread-safe instance of {@link WebDriver} for Dependency Injection
+ * @see Provider
+ * @see WebDriver
+ * @author AM
+ *
+ */
 @ScenarioScoped
 public class DriverManager implements Provider<WebDriver> {
 	private static final Logger logger = LoggerFactory.getLogger(DriverManager.class);
@@ -49,7 +56,8 @@ public class DriverManager implements Provider<WebDriver> {
 		case CHROME, CHROMIUM:
 			wdm = WebDriverManager.chromedriver();
 			myVersion.ifPresent(v -> wdm.browserVersion(myVersion.get()));
-			myOS.ifPresent(os -> wdm.operatingSystem(OperatingSystem.valueOf(myOS.get())));
+			myOS.ifPresent(
+					os -> wdm.operatingSystem(OperatingSystem.valueOf(myOS.get())));
 			ChromeOptions chOptions = new ChromeOptions();
 			arg = String.format("--lang=%s_%s", myLanguage, myCountry);
 			chOptions.addArguments(arg).setAcceptInsecureCerts(true).setCapability(ChromeOptions.CAPABILITY, chOptions);
